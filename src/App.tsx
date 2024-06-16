@@ -2,7 +2,11 @@ import YouTubeForm from './components/YouTubeForm';
 import './App.css';
 
 function App() {
-    return <YouTubeForm />;
+    return (
+        <>
+            <YouTubeForm />
+        </>
+    );
 }
 
 export default App;
