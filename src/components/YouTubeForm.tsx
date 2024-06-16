@@ -1,13 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
+let renderCount = 0;
+
 const YouTubeForm = () => {
     const form = useForm();
     const { register, control } = form;
-
+    renderCount++;
     return (
         <div>
-            <h1>YouTube Form</h1>
+            <h1>YouTube Form ({renderCount / 2})</h1>
             <form>
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username" {...register('username')} />
