@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
 let renderCount = 0;
@@ -12,6 +12,9 @@ type FormValues = {
         twitter: string;
     };
     phoneNumbers: string[];
+    phNumbers: {
+        number: string;
+    }[];
 };
 
 const YouTubeForm = () => {
@@ -25,10 +28,16 @@ const YouTubeForm = () => {
                 twitter: '',
             },
             phoneNumbers: ['', ''],
+            phNumbers: [{ number: '' }],
         },
     });
     const { register, control, handleSubmit, formState } = form;
     const { errors } = formState;
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: 'phNumbers',
+    });
 
     const onSubmit = (data: FormValues) => {
         console.log(data);
@@ -155,6 +164,34 @@ const YouTubeForm = () => {
                     />
                     <p className="error">{errors.phoneNumbers?.[1]?.message}</p>
                 </div>
+                <div>
+                    <label>List of phone numbers</label>
+                    <div>
+                        {fields.map((field, index) => (
+                            <div key={field.id} className="form-control">
+                                <input
+                                    type="text"
+                                    {...register(`phNumbers.${index}.number`)}
+                                />
+                                {index > 0 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => remove(index)}
+                                    >
+                                        Remove
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            onClick={() => append({ number: '' })}
+                        >
+                            Add phone number
+                        </button>
+                    </div>
+                </div>
+                <br />
                 <button>Submit</button>
             </form>
             <DevTool control={control} />
