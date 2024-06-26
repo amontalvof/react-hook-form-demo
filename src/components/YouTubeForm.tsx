@@ -15,20 +15,30 @@ type FormValues = {
     phNumbers: {
         number: string;
     }[];
+    age: number;
+    dob: Date | string;
 };
 
 const YouTubeForm = () => {
+    const date = new Date('1996-01-01');
+    const dateInUTC = new Date(
+        date.getTime() + date.getTimezoneOffset() * 60000
+    );
+    const formattedDate = dateInUTC.toLocaleDateString('en-CA');
+
     const form = useForm<FormValues>({
         defaultValues: {
-            username: '',
-            email: '',
-            channel: '',
+            username: 'John Doe',
+            email: 'john@mail.com',
+            channel: 'john_doe',
             social: {
-                facebook: '',
-                twitter: '',
+                facebook: 'john_doe_fb',
+                twitter: 'john_doe_tw',
             },
-            phoneNumbers: ['', ''],
-            phNumbers: [{ number: '' }],
+            phoneNumbers: ['1234567890', '9876543210'],
+            phNumbers: [{ number: '5555555555' }, { number: '9999999999' }],
+            age: 25,
+            dob: formattedDate,
         },
     });
     const { register, control, handleSubmit, formState } = form;
@@ -102,7 +112,7 @@ const YouTubeForm = () => {
                         {...register('channel', {
                             required: {
                                 value: true,
-                                message: 'Chanel is required!',
+                                message: 'Channel is required!',
                             },
                         })}
                     />
@@ -190,6 +200,36 @@ const YouTubeForm = () => {
                             Add phone number
                         </button>
                     </div>
+                </div>
+                <div className="form-control">
+                    <label htmlFor="age">Age</label>
+                    <input
+                        type="number"
+                        id="age"
+                        {...register('age', {
+                            valueAsNumber: true,
+                            required: {
+                                value: true,
+                                message: 'Age is required!',
+                            },
+                        })}
+                    />
+                    <p className="error">{errors.age?.message}</p>
+                </div>
+                <div className="form-control">
+                    <label htmlFor="dob">Date of Birth</label>
+                    <input
+                        type="date"
+                        id="dob"
+                        {...register('dob', {
+                            valueAsDate: true,
+                            required: {
+                                value: true,
+                                message: 'Date of Birth is required!',
+                            },
+                        })}
+                    />
+                    <p className="error">{errors.dob?.message}</p>
                 </div>
                 <br />
                 <button>Submit</button>
