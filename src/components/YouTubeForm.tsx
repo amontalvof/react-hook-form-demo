@@ -42,8 +42,15 @@ const YouTubeForm = () => {
             dob: formattedDate,
         },
     });
-    const { register, control, handleSubmit, formState, watch, getValues } =
-        form;
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState,
+        watch,
+        getValues,
+        setValue,
+    } = form;
     const { errors } = formState;
 
     const { fields, append, remove } = useFieldArray({
@@ -55,8 +62,16 @@ const YouTubeForm = () => {
         console.log(data);
     };
 
-    const handleClick = () => {
+    const handleGetClick = () => {
         console.log('Get values:', getValues(['social.twitter', 'age']));
+    };
+
+    const handleSetClick = () => {
+        setValue('username', '', {
+            shouldValidate: true,
+            shouldDirty: true,
+            shouldTouch: true,
+        });
     };
 
     useEffect(() => {
@@ -195,7 +210,7 @@ const YouTubeForm = () => {
                     <p className="error">{errors.phoneNumbers?.[1]?.message}</p>
                 </div>
                 <div>
-                    <label>List of phone numbers</label>
+                    <label htmlFor="">List of phone numbers</label>
                     <div>
                         {fields.map((field, index) => (
                             <div key={field.id} className="form-control">
@@ -256,10 +271,17 @@ const YouTubeForm = () => {
                 <button style={{ margin: '10px' }}>Submit</button>
                 <button
                     type="button"
-                    onClick={handleClick}
+                    onClick={handleGetClick}
                     style={{ margin: '10px' }}
                 >
                     Get values
+                </button>
+                <button
+                    type="button"
+                    onClick={handleSetClick}
+                    style={{ margin: '10px' }}
+                >
+                    Set values
                 </button>
             </form>
             <DevTool control={control} />
