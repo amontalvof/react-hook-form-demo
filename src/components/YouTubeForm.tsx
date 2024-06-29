@@ -42,7 +42,8 @@ const YouTubeForm = () => {
             dob: formattedDate,
         },
     });
-    const { register, control, handleSubmit, formState, watch } = form;
+    const { register, control, handleSubmit, formState, watch, getValues } =
+        form;
     const { errors } = formState;
 
     const { fields, append, remove } = useFieldArray({
@@ -52,6 +53,10 @@ const YouTubeForm = () => {
 
     const onSubmit = (data: FormValues) => {
         console.log(data);
+    };
+
+    const handleClick = () => {
+        console.log('Get values:', getValues(['social.twitter', 'age']));
     };
 
     useEffect(() => {
@@ -202,6 +207,7 @@ const YouTubeForm = () => {
                                     <button
                                         type="button"
                                         onClick={() => remove(index)}
+                                        style={{ margin: '10px' }}
                                     >
                                         Remove
                                     </button>
@@ -247,7 +253,14 @@ const YouTubeForm = () => {
                     <p className="error">{errors.dob?.message}</p>
                 </div>
                 <br />
-                <button>Submit</button>
+                <button style={{ margin: '10px' }}>Submit</button>
+                <button
+                    type="button"
+                    onClick={handleClick}
+                    style={{ margin: '10px' }}
+                >
+                    Get values
+                </button>
             </form>
             <DevTool control={control} />
         </div>
