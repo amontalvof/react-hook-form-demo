@@ -50,6 +50,7 @@ const YouTubeForm = () => {
         watch,
         getValues,
         setValue,
+        reset,
     } = form;
     const {
         errors,
@@ -294,22 +295,29 @@ const YouTubeForm = () => {
                     <p className="error">{errors.dob?.message}</p>
                 </div>
                 <br />
-                <button style={{ margin: '10px' }} disabled={!isValid}>
+                <button style={{ marginRight: '3px' }} disabled={!isValid}>
                     Submit
                 </button>
                 <button
                     type="button"
                     onClick={handleGetClick}
-                    style={{ margin: '10px' }}
+                    style={{ marginRight: '3px' }}
                 >
                     Get values
                 </button>
                 <button
                     type="button"
                     onClick={handleSetClick}
-                    style={{ margin: '10px' }}
+                    style={{ marginRight: '3px' }}
                 >
                     Set values
+                </button>
+                <button
+                    type="button"
+                    onClick={() => reset()}
+                    style={{ marginRight: '3px' }}
+                >
+                    Reset
                 </button>
             </form>
             <DevTool control={control} />
