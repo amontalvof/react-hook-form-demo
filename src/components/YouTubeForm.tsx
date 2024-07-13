@@ -160,6 +160,16 @@ const YouTubeForm = () => {
                                         'You are blacklisted!'
                                     );
                                 },
+                                emailAvailable: async (fieldValue) => {
+                                    const response = await fetch(
+                                        `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                                    );
+                                    const data = await response.json();
+                                    return (
+                                        data.length === 0 ||
+                                        'Email is already taken!'
+                                    );
+                                },
                             },
                         })}
                     />
@@ -295,9 +305,7 @@ const YouTubeForm = () => {
                     <p className="error">{errors.dob?.message}</p>
                 </div>
                 <br />
-                <button style={{ marginRight: '3px' }} disabled={!isValid}>
-                    Submit
-                </button>
+                <button style={{ marginRight: '3px' }}>Submit</button>
                 <button
                     type="button"
                     onClick={handleGetClick}
