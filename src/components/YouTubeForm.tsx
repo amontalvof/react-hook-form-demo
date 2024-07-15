@@ -41,6 +41,7 @@ const YouTubeForm = () => {
             age: 25,
             dob: formattedDate,
         },
+        mode: 'all',
     });
     const {
         register,
