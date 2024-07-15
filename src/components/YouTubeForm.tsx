@@ -41,7 +41,7 @@ const YouTubeForm = () => {
             age: 25,
             dob: formattedDate,
         },
-        mode: 'all',
+        mode: 'onSubmit',
     });
     const {
         register,
@@ -52,6 +52,7 @@ const YouTubeForm = () => {
         getValues,
         setValue,
         reset,
+        trigger,
     } = form;
     const {
         errors,
@@ -306,28 +307,44 @@ const YouTubeForm = () => {
                     <p className="error">{errors.dob?.message}</p>
                 </div>
                 <br />
-                <button style={{ marginRight: '3px' }}>Submit</button>
-                <button
-                    type="button"
-                    onClick={handleGetClick}
-                    style={{ marginRight: '3px' }}
+                <div
+                    style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        width: '400px',
+                        justifyContent: 'center',
+                    }}
                 >
-                    Get values
-                </button>
-                <button
-                    type="button"
-                    onClick={handleSetClick}
-                    style={{ marginRight: '3px' }}
-                >
-                    Set values
-                </button>
-                <button
-                    type="button"
-                    onClick={() => reset()}
-                    style={{ marginRight: '3px' }}
-                >
-                    Reset
-                </button>
+                    <button style={{ margin: '5px' }}>Submit</button>
+                    <button
+                        type="button"
+                        onClick={handleGetClick}
+                        style={{ margin: '5px' }}
+                    >
+                        Get values
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleSetClick}
+                        style={{ margin: '5px' }}
+                    >
+                        Set values
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => reset()}
+                        style={{ margin: '5px' }}
+                    >
+                        Reset
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => trigger('channel')}
+                        style={{ margin: '5px' }}
+                    >
+                        Validate
+                    </button>
+                </div>
             </form>
             <DevTool control={control} />
         </div>
